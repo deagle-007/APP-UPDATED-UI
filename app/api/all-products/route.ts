@@ -13,9 +13,13 @@ export async function GET(request: NextRequest) {
 
     // ✅ Build MongoDB filter dynamically with proper checks
     const filter: Record<string, any> = {};
+
+    // Ensure email is a valid string before using it
     if (email && typeof email === "string" && email.trim() !== "") {
       filter.email = email;
     }
+
+    // Ensure category is a valid string before using it
     if (category && typeof category === "string" && category.trim() !== "") {
       filter.category = category;
     }
