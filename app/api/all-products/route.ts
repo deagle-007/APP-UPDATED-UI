@@ -11,15 +11,19 @@ export async function GET(request: NextRequest) {
     const email = searchParams.get("email");
     const category = searchParams.get("category");
 
+    // Log values for debugging
+    console.log("Received email:", email);
+    console.log("Received category:", category);
+
     // ✅ Build MongoDB filter dynamically with proper checks
     const filter: Record<string, any> = {};
 
-    // Ensure email is a valid string before using it
+    // Ensure email is a valid string and add to filter
     if (email && typeof email === "string" && email.trim() !== "") {
       filter.email = email;
     }
 
-    // Ensure category is a valid string before using it
+    // Ensure category is a valid string and add to filter
     if (category && typeof category === "string" && category.trim() !== "") {
       filter.category = category;
     }
@@ -44,7 +48,7 @@ export async function GET(request: NextRequest) {
       });
     });
 
-    // Return the formatted products
+    // Return the formatted products as a JSON response
     return NextResponse.json(formattedProducts);
   } catch (error) {
     console.error("❌ Error fetching products:", error);
